@@ -26,13 +26,32 @@ export default function ProfileHeader({ report }) {
           </p>
         )}
 
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-5">
           {report.location && (
             <span className="text-zinc-500 text-sm">📍 {report.location}</span>
           )}
-          <span className="text-zinc-500 text-sm">{report.public_repos} repos</span>
-          <span className="text-zinc-500 text-sm">{report.followers} followers</span>
-          <span className="text-zinc-500 text-sm">Joined {report.joined_year}</span>
+          <span className="text-zinc-500 text-sm">
+            <strong className="text-white">{report.public_repos}</strong> repos
+          </span>
+          <span className="text-zinc-500 text-sm">
+            <strong className="text-white">{report.followers}</strong> followers
+          </span>
+          <span className="text-zinc-500 text-sm">
+            <strong className="text-white">{report.following}</strong> following
+          </span>
+          <span className="text-zinc-500 text-sm">
+            Joined <strong className="text-white">{report.joined_year}</strong>
+          </span>
+          {report.blog && (
+            
+              href={report.blog}
+              target="_blank"
+              rel="noreferrer"
+              className="text-blue-400 text-sm hover:underline"
+            >
+              🔗 {report.blog}
+            </a>
+          )}
         </div>
       </div>
     </div>
