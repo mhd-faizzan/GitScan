@@ -5,8 +5,10 @@ const LANG_COLORS = {
 }
 
 function RepoCard({ repo }) {
+  const langColor = LANG_COLORS[repo.language] ?? '#8b949e'
+
   return (
-    <div className="bg-[#161b22] border border-zinc-800 rounded-xl p-5 hover:border-green-500 transition-colors cursor-pointer">
+    <div className="bg-[#161b22] border border-zinc-800 rounded-xl p-5 hover:border-green-500 transition-colors">
       <p className="font-mono text-sm text-blue-400 mb-2 truncate">{repo.name}</p>
       <p className="text-zinc-500 text-xs leading-relaxed mb-4 min-h-[32px]">
         {repo.description ?? 'No description provided.'}
@@ -14,15 +16,13 @@ function RepoCard({ repo }) {
       <div className="flex gap-3 flex-wrap">
         {repo.language && (
           <span className="flex items-center gap-1.5 font-mono text-xs text-zinc-400">
-            <span
-              className="w-2.5 h-2.5 rounded-full"
-              style={{ background: LANG_COLORS[repo.language] ?? '#8b949e' }}
-            />
+            <span className="w-2.5 h-2.5 rounded-full" style={{ background: langColor }} />
             {repo.language}
           </span>
         )}
         <span className="font-mono text-xs text-zinc-400">★ {repo.stars}</span>
         <span className="font-mono text-xs text-zinc-400">⑂ {repo.forks}</span>
+        <span className="font-mono text-xs text-zinc-400">⬆ {repo.commits} commits</span>
       </div>
     </div>
   )
