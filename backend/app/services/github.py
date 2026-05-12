@@ -83,15 +83,46 @@ async def fetch_all_commits(username: str, repos: list[dict]) -> dict[str, int]:
     return commit_counts
 
 
-async def fetch_contribution_days(username: str, events: list[dict]) -> dict[str, int]:
-    # build a date -> commit count map from push events
-    day_counts: dict[str, int] = {}
+async def fetch_contribution_calendar(username: str) -> dict[str, int]:
+    query = """
+    query($username: String!) {
+      user(login: $username) {
+        contributionsCollection {
+          contributionCalendar {
+            weeks {
+              contributionDays {
+                date
+                contributionCount
+              }
+            }
+          }
+        }
+      }
+    }
+    """
 
-    for event in events:
-        if event["type"] != "PushEvent":
-            continue
-        date = event["created_at"][:10]
-        commits = len(event.get("payload", {}).get("commits", []))
-        day_counts[date] = day_counts.get(date, 0) + commits
+    async with httpx.AsyncClient() as client:
+        res = await client.post(
+            "https://api.github.com/graphql",
+            headers=get_headers(),
+            json={"query": query, "variables": {"username": username}},
+        )
+
+    if not res.is_success:
+        return {}
+
+    data = res.json()
+    weeks = (
+        data.get("data", {})
+            .get("user", {})
+            .get("contributionsCollection", {})
+            .get("contributionCalendar", {})
+            .get("weeks", [])
+    )
+
+    day_counts: dict[str, int] = {}
+    for week in weeks:
+        for day in week.get("contributionDays", []):
+            day_counts[day["date"]] = day["contributionCount"]
 
     return day_counts
