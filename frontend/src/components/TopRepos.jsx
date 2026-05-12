@@ -6,14 +6,9 @@ const LANG_COLORS = {
 
 function RepoCard({ repo }) {
   return (
-    
-      href={repo.url}
-      target="_blank"
-      rel="noreferrer"
-      className="block bg-[#161b22] border border-zinc-800 rounded-xl p-5 hover:border-green-500 transition-colors"
-    >
+    <div className="bg-[#161b22] border border-zinc-800 rounded-xl p-5 hover:border-green-500 transition-colors cursor-pointer">
       <p className="font-mono text-sm text-blue-400 mb-2 truncate">{repo.name}</p>
-      <p className="text-zinc-500 text-xs leading-relaxed mb-4 line-clamp-2 min-h-[32px]">
+      <p className="text-zinc-500 text-xs leading-relaxed mb-4 min-h-[32px]">
         {repo.description ?? 'No description provided.'}
       </p>
       <div className="flex gap-3 flex-wrap">
@@ -29,7 +24,7 @@ function RepoCard({ repo }) {
         <span className="font-mono text-xs text-zinc-400">★ {repo.stars}</span>
         <span className="font-mono text-xs text-zinc-400">⑂ {repo.forks}</span>
       </div>
-    </a>
+    </div>
   )
 }
 
