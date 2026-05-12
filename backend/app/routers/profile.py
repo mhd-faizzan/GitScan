@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.services.github import fetch_user, fetch_repos, fetch_events
+from app.services.github import fetch_user, fetch_repos, fetch_events, fetch_all_commits
 from app.services.analyzer import (
     detect_dev_type,
     get_top_languages,
@@ -20,6 +20,8 @@ async def get_profile(username: str):
         await fetch_events(username),
     )
 
+    commit_counts = await fetch_all_commits(username, repos)
+
     return ProfileReport(
         username=user["login"],
         name=user.get("name"),
@@ -32,8 +34,8 @@ async def get_profile(username: str):
         public_repos=user["public_repos"],
         joined_year=int(user["created_at"][:4]),
         dev_type=detect_dev_type(repos),
-        activity=get_activity_summary(events, repos),
+        activity=get_activity_summary(events, repos, commit_counts),
         languages=get_top_languages(repos),
-        top_repos=get_top_repos(repos),
+        top_repos=get_top_repos(repos, commit_counts),
         checklist=get_checklist(user),
     )
