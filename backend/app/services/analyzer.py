@@ -70,7 +70,6 @@ def get_top_languages(repos: list[dict]) -> list[LanguageStat]:
 
 
 def get_top_repos(repos: list[dict], commit_counts: dict[str, int]) -> list[RepoSummary]:
-    # rank by commits first, stars as tiebreaker
     sorted_repos = sorted(
         repos,
         key=lambda r: (commit_counts.get(r["name"], 0), r["stargazers_count"]),
@@ -84,6 +83,7 @@ def get_top_repos(repos: list[dict], commit_counts: dict[str, int]) -> list[Repo
             language=r.get("language"),
             stars=r["stargazers_count"],
             forks=r["forks_count"],
+            commits=commit_counts.get(r["name"], 0),
             url=r["html_url"],
         )
         for r in sorted_repos[:3]
