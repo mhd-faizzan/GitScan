@@ -43,6 +43,7 @@ class ProfileReport(BaseModel):
     joined_year: int
     dev_type: str
     activity: ActivitySummary
+    heatmap: dict[str, int]
     languages: list[LanguageStat]
     top_repos: list[RepoSummary]
     checklist: list[HealthCheck]

@@ -81,3 +81,17 @@ async def fetch_all_commits(username: str, repos: list[dict]) -> dict[str, int]:
                 commit_counts[repo["name"]] = 0
 
     return commit_counts
+
+
+async def fetch_contribution_days(username: str, events: list[dict]) -> dict[str, int]:
+    # build a date -> commit count map from push events
+    day_counts: dict[str, int] = {}
+
+    for event in events:
+        if event["type"] != "PushEvent":
+            continue
+        date = event["created_at"][:10]
+        commits = len(event.get("payload", {}).get("commits", []))
+        day_counts[date] = day_counts.get(date, 0) + commits
+
+    return day_counts
