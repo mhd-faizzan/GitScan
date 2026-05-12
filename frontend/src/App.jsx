@@ -41,7 +41,8 @@ export default function App() {
 
   return (
     <main className="min-h-screen bg-[#060910] text-white px-6 py-12">
-      <div className="max-w-4xl mx-auto">
+      <div className={tab === 'compare' ? 'max-w-6xl mx-auto' : 'max-w-4xl mx-auto'}>
+
         <div className="flex justify-center gap-2 mb-10">
           <button
             onClick={() => setTab('scan')}
@@ -93,6 +94,7 @@ export default function App() {
         )}
 
         {tab === 'compare' && <CompareView />}
+
       </div>
     </main>
   )
