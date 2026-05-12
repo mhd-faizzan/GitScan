@@ -8,6 +8,7 @@ class RepoSummary(BaseModel):
     language: Optional[str] = None
     stars: int
     forks: int
+    commits: int
     url: str
 
 
