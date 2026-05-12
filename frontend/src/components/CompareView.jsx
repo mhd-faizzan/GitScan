@@ -5,6 +5,8 @@ import ActivitySummary from './ActivitySummary'
 import TechStack from './TechStack'
 import TopRepos from './TopRepos'
 
+const API = import.meta.env.VITE_API_URL || ''
+
 export default function CompareView() {
   const [user1, setUser1] = useState('')
   const [user2, setUser2] = useState('')
@@ -19,7 +21,7 @@ export default function CompareView() {
     setLoading(true)
 
     try {
-      const { data } = await axios.get(`/api/compare?user1=${user1}&user2=${user2}`)
+      const { data } = await axios.get(`${API}/api/compare?user1=${user1}&user2=${user2}`)
       setProfiles(data)
     } catch (err) {
       setError(err.response?.data?.detail ?? 'Something went wrong.')

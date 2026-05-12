@@ -4,6 +4,8 @@ import ProfileReport from './components/ProfileReport'
 import CompareView from './components/CompareView'
 import axios from 'axios'
 
+const API = import.meta.env.VITE_API_URL || ''
+
 export default function App() {
   const [tab, setTab] = useState('scan')
   const [report, setReport] = useState(null)
@@ -24,7 +26,7 @@ export default function App() {
     window.history.pushState({}, '', `?user=${username}`)
 
     try {
-      const { data } = await axios.get(`/api/profile/${username}`)
+      const { data } = await axios.get(`${API}/api/profile/${username}`)
       setReport(data)
     } catch (err) {
       setError(err.response?.data?.detail ?? 'Something went wrong.')
