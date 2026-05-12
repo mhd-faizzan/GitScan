@@ -41,7 +41,7 @@ def calc_quality_score(repos: list[dict]) -> int:
     if not repos:
         return 0
 
-    with_desc = sum(1 for r in repos if r.get("description", "").strip())
+    with_desc = sum(1 for r in repos if (r.get("description") or "").strip())
     desc_ratio = with_desc / len(repos)
 
     avg_stars = sum(r["stargazers_count"] for r in repos) / len(repos)
