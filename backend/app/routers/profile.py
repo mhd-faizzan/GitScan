@@ -5,7 +5,7 @@ from app.services.analyzer import (
     get_top_languages,
     get_top_repos,
     get_checklist,
-    build_scores,
+    get_activity_summary,
 )
 from app.models.profile import ProfileReport
 
@@ -14,7 +14,11 @@ router = APIRouter(prefix="/api", tags=["profile"])
 
 @router.get("/profile/{username}", response_model=ProfileReport)
 async def get_profile(username: str):
-    user, repos, events = await fetch_user(username), await fetch_repos(username), await fetch_events(username)
+    user, repos, events = (
+        await fetch_user(username),
+        await fetch_repos(username),
+        await fetch_events(username),
+    )
 
     return ProfileReport(
         username=user["login"],
@@ -22,12 +26,13 @@ async def get_profile(username: str):
         bio=user.get("bio"),
         avatar_url=user["avatar_url"],
         location=user.get("location"),
-        blog=user.get("blog"),
+        blog=user.get("blog") or None,
         followers=user["followers"],
+        following=user["following"],
         public_repos=user["public_repos"],
         joined_year=int(user["created_at"][:4]),
         dev_type=detect_dev_type(repos),
-        scores=build_scores(user, repos, events),
+        activity=get_activity_summary(events, repos),
         languages=get_top_languages(repos),
         top_repos=get_top_repos(repos),
         checklist=get_checklist(user),
