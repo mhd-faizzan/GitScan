@@ -140,7 +140,7 @@ GitScan/
 │   │   │   ├── github.py        # all GitHub API calls
 │   │   │   └── analyzer.py      # scoring and data processing
 │   │   └── main.py              # FastAPI app setup
-│   ├── .env                     # your GitHub token (never committed)
+│   ├── .env                     # your GitHub token (pls do not forget to put it in gitignore!!!)
 │   ├── .gitignore
 │   ├── pyproject.toml
 │   └── requirements.txt
@@ -189,4 +189,4 @@ Fork it, open a PR, or just use it however you want. If you build something on t
 
 ---
 
-Built by [Muhammad Faizan](https://github.com/mhd-faizzan) during MLH Global Hack Week — GenAI 2026.
+Built by [Muhammad Faizan](https://github.com/mhd-faizzan) during MLH Global Hack Week - GenAI 2026.
