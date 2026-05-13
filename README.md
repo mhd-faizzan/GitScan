@@ -165,13 +165,13 @@ The live app is deployed on:
 - **Frontend** → [Vercel](https://vercel.com) (free)
 - **Backend** → [Railway](https://railway.app) (free tier — $5 credit/month)
 
-> ⚠️ **Important note about the API token:** The GitHub token used in the live demo will expire after 90 days. If you find this project useful, fork it, generate your own token, and plug it in — it takes about 2 minutes and keeps everything working.
+> ⚠️ **Important note about the API token:** The GitHub token used in the live demo will expire after 30 days. If you find this project useful, fork it, generate your own token, and plug it in — it takes about 2 minutes and keeps everything working.
 
 If you're self-hosting, set `GITHUB_TOKEN` as an environment variable in wherever you're deploying the backend. On Railway you add it under the Variables tab. On Render it's under Environment. Same idea everywhere.
 
 ---
 
-## Tech stack summary
+## Tech stack summarys
 
 | Layer | Tech |
 |---|---|
