@@ -1,25 +1,15 @@
-import { AdvancedImage } from '@cloudinary/react'
-import { CloudinaryImage } from '@cloudinary/url-gen'
-import { fill } from '@cloudinary/url-gen/actions/resize'
-import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity'
-import { format, quality } from '@cloudinary/url-gen/actions/delivery'
-import { auto } from '@cloudinary/url-gen/qualifiers/format'
-import { auto as autoQuality } from '@cloudinary/url-gen/qualifiers/quality'
+const CLOUD_NAME = 'dhdsuetod'
+
+function getCloudinaryAvatar(url) {
+  // run github avatar through cloudinary for optimization
+  return `https://res.cloudinary.com/${CLOUD_NAME}/image/fetch/w_80,h_80,c_fill,g_auto,f_auto,q_auto/${encodeURIComponent(url)}`
+}
 
 export default function ProfileHeader({ report }) {
-  // fetch github avatar through cloudinary for smart crop and optimization
-  const avatarImage = new CloudinaryImage('', { cloudName: 'dhdsuetod' })
-    .setDeliveryType('fetch')
-    .resize(fill().width(80).height(80).gravity(autoGravity()))
-    .delivery(format(auto()))
-    .delivery(quality(autoQuality()))
-
-  avatarImage.setPublicID(report.avatar_url)
-
   return (
     <div className="bg-[#0d1117] border border-zinc-800 rounded-xl p-7 flex gap-7 items-start mb-5">
-      <AdvancedImage
-        cldImg={avatarImage}
+      <img
+        src={getCloudinaryAvatar(report.avatar_url)}
         alt="avatar"
         className="w-20 h-20 rounded-full border-2 border-zinc-800 flex-shrink-0"
       />
